@@ -1,0 +1,222 @@
+<html>
+
+<head>
+    <meta charset="UTF-8"> 
+    <title>sergio sanchez lopez's cool webpage</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link href="http://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+    <style>
+        * {
+            -webkit-box-sizing: border-box;
+            /* for older webkit browsers */
+            -moz-box-sizing: border-box;
+            /* for older mozilla browsers */
+            box-sizing: border-box;
+            /* for latest browsers */
+        }
+        
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+            overflow: scroll;
+        }
+        
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #FDF6E3;
+            /*
+            background-image: linear-gradient(to top, #fffcf5, #fff1d2);
+            background-repeat: no-repeat;*/
+            background-size: auto;
+            background-attachment: fixed;
+        }
+        
+        .centered {
+            height: 100%;
+            max-width: 750px;
+            margin: 0 auto;
+            font-size: 1em;
+        }
+        
+        .bree {
+            font-family: 'Bree Serif', serif;
+            font-weight: normal;
+        }
+        
+        .splashtext {
+            white-space: nowrap;
+            text-align: right;
+            font-family: 'Bree Serif', serif;
+            font-weight: normal;
+            font-size: 10em;
+            line-height: 0.9em;
+            margin-bottom: 1px;
+            /*text-shadow: rgba(184, 134, 11, 0.19) 3px 3px;*/
+            padding-top: 0px;
+            margin-top: 0px;
+            background: -webkit-linear-gradient(#6C71C4, #91b2be);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .inline-block {
+            vertical-align: top;
+            position: relative;
+            top: 0px;
+            width: 355px;
+            padding: 0px;
+            display: inline-block;
+        }
+        
+        .vertical-separator {
+            vertical-align: top;
+            width: 0px;
+            height: 217.5px;
+            display: inline-block;
+            border-right: 0.5px solid;
+            border-color: rgba(75, 75, 75, 0.06);
+        }
+        
+        img.small {
+            width: 1.6em;
+            margin-bottom: -6px;
+        }
+        
+        pre {
+            font-size: 1.2em;
+        }
+        
+        .code {
+            font-family: 'Inconsolata', monospace;
+            line-height: 1em
+        }
+        
+        .line {
+            background-color: rgba(0,0,0,0);
+            -webkit-transition: background .5s ease-out;
+            -moz-transition: background .5s ease-out;
+            -o-transition: background .5s ease-out;
+            transition: background .5s ease-out;
+        }
+        
+        .line:hover {
+            background-color: rgba(136, 149, 150, 0.19);
+        }
+        
+        a {
+            color: #6C71C4;
+        }
+        
+        .color1 {
+            font-weight: bold;
+        }
+        
+        .links {
+            font-size: 1em;
+            line-height: 1.5em;
+            text-align: right;
+        }
+        
+        .blockwrapper {
+            display: inline-block
+        }
+        
+        .symbol {
+            color: #657B83;
+        }
+        
+        .variable {
+            color: #DC322F;
+        }
+        
+        .keyword {
+            color: #B58900;
+        }
+        
+        .field {
+            color: #859900;
+        }
+        
+        .value {
+            color: #6C71C4;
+        }
+        
+        .comment {
+            color: #839496;
+        }
+        
+        .indent1 {
+            padding-left: 2em;
+        }
+        
+        .ascii {
+            color: #839496;
+            align-content: center;
+            word-break:break-all;
+            font-family: 'Bree Serif', serif;
+            font-weight: normal;
+            width: 0.1em;
+            z-index: 1;
+            margin: 0px;
+            word-spacing: 100%;
+            
+        }
+        
+        .left {
+            float: left;
+            position: relative;
+            left: -15px;
+            
+        }
+        
+        .right {
+            float: right;
+            position: relative;
+            right: -15px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="centered">
+        <div class="ascii left">\ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ /</div>
+        <div class="ascii right">/ \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \</div>
+        <h1 class="splashtext comment"><div class="line">/* sergio-<br> sanchezl</div></h1>
+        <h2 class="bree comment"> <div class="line">software developer, gaming enthusiast. i like guinea pigs. */</div></h2>
+        <div class="blockwrapper">
+
+            <div class="inline-block">
+                <div class="code">
+                    <div class="line"><span class="keyword">var</span> <span class="variable">contact</span> <span class="symbol">= {</span></div>
+                    <div class="line indent1"><span class="field">facebook:</span> <img class="small" src="images/facebook.png"><a href="https://www.facebook.com/sergiosanchezlopez0">sergiosanchezlopez.0</a><span class="symbol">,</span></div>
+                    <div class="line indent1"><span class="field">twitter:</span> <img class="small" src="images/twitter.png"><span class="value">null</span><span class="symbol">,</span></div>
+                    <div class="line indent1"><span class="field">github:</span> <img class="small" src="images/github_alt.png"><a href="https://github.com/sergio-sanchezl">sergio-sanchezl</a><span class="symbol">,</span></div>
+                    <div class="line indent1"><span class="field">stackoverflow:</span> <img class="small" src="images/stackoverflow.png"><a href="http://stackoverflow.com/users/4232536/sergio-s%C3%A1nchez">Sergio Sánchez</a><span class="symbol">,</span></div>
+                    <div class="line indent1"><span class="field">skype:</span> <img class="small" src="images/skype.png"><a>icephoenix.90</a><span class="symbol">,</span></div>
+                    <div class="line indent1"><span class="field">steam:</span> <img class="small" src="images/steam.png"><a href="http://steamcommunity.com/id/iced0/">iced0</a><span class="symbol">,</span></div>
+                    <div class="line indent1"><span class="field">spotify:</span> <img class="small" src="images/spotify.png"><a href="https://open.spotify.com/user/frozenkore">click here!</a><span class="symbol">,</span></div>
+                    <div class="line indent1"><span class="field">email:</span> <img class="small" src="images/email.png"><a href="mailto:sergiosanchezlopez.0@gmail.com">sergiosanchezlopez.0@gmail.com</a></div>
+                    <div class="line"><span class="symbol">};</span></div>
+                </div>
+            </div>
+            <div class="vertical-separator"></div>
+            <div class="inline-block links code">
+                <div class="line"><span class="comment">//links</span></div>
+                <div class="line"><span class="comment">//</span><a href="blog.html">./blog.html</a></div>
+                <div class="line"><span class="comment">//</span><a href="chat.html">./chat.html</a></div>
+                <div class="line"><span class="comment">//</span><a href="jesus.html">./jesus.html</a></div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

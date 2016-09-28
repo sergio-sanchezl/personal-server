@@ -1,0 +1,197 @@
+<html>
+    <head>
+    <title>Index</title>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+        $(window).load(function() {
+            $(".divcontainer").fadeIn(750);
+
+            $('a[href^="#"]').on('click', function(e) {
+                e.preventDefault();
+                var target = this.hash;
+                var $target = $(target);
+
+                $('html, body').stop().animate({
+                    'scrollTop': $target.offset().top
+                }, 750, 'swing', function() {
+                    window.location.hash = target;
+                });
+            });
+
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 100) {
+                    $('.scrollToTop').fadeIn();
+                } else {
+                    $('.scrollToTop').fadeOut(100);
+                }
+            });
+        });
+    </script>
+
+    <link href="http://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <style>
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        body {
+            background-image: linear-gradient(to bottom, #eaeaea, #c7c7c7);
+        }
+        
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Bree Serif', serif;
+            font-weight: normal;
+            text-align: center;
+            flex-wrap: wrap;
+        }
+        
+        div.divcontainer {
+            position: relative;
+            display: none;
+            max-width: 800px;
+            margin: auto;
+            align-content: center;
+        }
+        
+        @-webkit-keyframes animatebottom {
+            from {
+                bottom: -100px;
+                opacity: 0
+            }
+            to {
+                bottom: 0px;
+                opacity: 1
+            }
+        }
+        
+        @keyframes animatebottom {
+            from {
+                bottom: -100px;
+                opacity: 0
+            }
+            to {
+                bottom: 0;
+                opacity: 1
+            }
+        }
+        
+        div.contenttable {
+            background-color: white;
+            border: 1px solid;
+            border-radius: 5px;
+            border-color: white;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        
+        div.container {
+            max-width: 600px;
+            background-color: white;
+            border: 1px solid;
+            border-radius: 5px;
+            border-color: white;
+            margin-bottom: 5px;
+            padding: 10px;
+        }
+        
+        @media screen and (min-width:600px) {
+            div.contenttable {
+                position: absolute;
+                left: 0;
+                width: 195px;
+                margin-bottom: 0px;
+            }
+            div.container {
+                margin-left: 200px;
+            }
+        }
+        
+        @media screen and (max-width:599px) {
+            div.contenttable li {
+                display: inline;
+            }
+            div.contenttable {
+                margin-bottom: 5px;
+            }
+            div.container {
+                margin-left: 0px;
+            }
+        }
+        
+        div.contenttable ul {
+            font-size: 14px
+        }
+        
+        p {
+            text-align: justify
+        }
+        
+        div.contenttable a:link {
+            color: dimgrey;
+        }
+        
+        div.contenttable a:visited {
+            color: dimgrey;
+        }
+        
+        .title {
+            font-size: 80px;
+        }
+        
+        .scrollToTop {
+        	z-index: 1;
+            width: 100px;
+            height: 100px;
+            position: fixed;
+            display: none;
+            top: 10px;
+            background: url('images/arrow-up.png');
+            background-size: 100px 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <span id="top"></span>
+    
+    <div class="divcontainer">
+        <h1 class="title">Testing This Shiiiiit</h1>
+        <a class="scrollToTop" href="#top"></a>
+        <div class="contenttable">
+            <h3>Table of contents</h3>
+            <ul>
+                <li><a href="#p1">Párrafo 1</a></li>
+                <li><a href="#p2">Párrafo 2</a></li>
+            </ul>
+        </div>
+        <div class="container" id="p1">
+            <h2>Párrafo 1</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec libero orci, interdum eu tellus eu, tristique rutrum nisl. Sed vehicula ornare sem dictum blandit. Pellentesque turpis velit, suscipit eu semper at, convallis a nisi. Praesent vel neque convallis, suscipit felis non, imperdiet augue. Maecenas ut rhoncus velit. Nullam auctor augue ante, in tristique ex iaculis a. Suspendisse in ultricies magna, at dictum augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus auctor, risus et placerat posuere, urna leo ultricies velit, nec venenatis nulla justo a justo. Fusce ac mi sit amet enim pharetra vulputate non ac diam. Nulla elementum, erat a condimentum fringilla, nisi lorem cursus est, et mollis orci mauris vel ex. Vestibulum nec dignissim velit. Pellentesque quis erat id leo feugiat rutrum. In ut ipsum ligula.
+            </p>
+        </div>
+
+        <div class="container" id="p2">
+            <h2>Párrafo 2</h2>
+            <p>
+                Phasellus elementum porta eros id dapibus. Maecenas ultrices urna vitae nibh tristique, ac commodo urna eleifend. Mauris ornare suscipit euismod. Nulla et nisi eu odio condimentum sagittis et nec orci. Nullam at lacus id est consectetur fringilla rutrum non tortor. Integer id ex ut nisl finibus dictum sit amet sed mi. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            </p>
+            <p>
+                Donec tempus lobortis pellentesque. In a ex imperdiet, dapibus lorem ac, condimentum purus. Sed finibus ullamcorper turpis, non euismod libero. Donec id risus lobortis, convallis massa ultricies, pulvinar orci. Nunc aliquam consectetur pharetra. Nulla non tellus ut urna congue mattis. Duis sed velit in enim pulvinar interdum eget ut odio. Phasellus nec nisi eu mi finibus sollicitudin. Phasellus non varius mi. Mauris viverra tellus sed laoreet dictum. Vivamus rutrum purus consectetur aliquam volutpat. Nullam eget tellus erat. Proin efficitur pulvinar consequat. Donec eros ex, vulputate et purus quis, interdum cursus odio. Ut eu vulputate turpis. Maecenas eleifend vulputate auctor.
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>

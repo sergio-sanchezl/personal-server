@@ -1,0 +1,300 @@
+<html>
+    <head>
+    <title>WebSockets test</title>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+        $(window).load(function() {
+            $("#sendbutton").prop("disabled", true);
+            $(".divcontainer").fadeIn(750);
+            
+            var websocket;
+
+            $("#connectButton").click(function() {
+                var uriWS = "ws://sergio-sanchezl.rhcloud.com:8000/chat/" + encodeURIComponent($("#nicknameField").val());
+                websocket = new WebSocket(uriWS);
+                
+                console.log(websocket);
+                
+                websocket.onopen = function(event) {
+                    console.log("Websocket is open!");
+                    $("#nicknameDiv").fadeOut();
+                    $("#chatDiv").fadeIn();
+                };
+                
+                websocket.onclose = function(event) {
+                    console.log("Websocket closed.");
+                    $("#chatDiv").fadeOut();
+                    $("#nicknameDiv").fadeIn();
+                };
+                
+                websocket.onerror = function(event) {
+                    $("#errorField").text(event.data);
+                };
+                
+                websocket.onmessage = function(event) { 
+                    $("#conversationDiv").html($("#conversationDiv").html() + event.data);
+                    
+                    $("#conversationDiv").scrollTop($("#conversationDiv")[0].scrollHeight); // Scroll all the way down!
+                }; 
+                
+            });
+            
+            $("#sendButton").click(function() {
+                websocket.send($("#chatInputField").val());
+                $("#chatInputField").val("");
+            });
+            
+            $("#chatInputField").bind("enterKey",function(event){
+                websocket.send($("#chatInputField").val());
+                $("#chatInputField").val("");
+            });
+            $("#chatInputField").keyup(function(event){
+                if(event.keyCode == 13) {
+                    $(this).trigger("enterKey");
+                } 
+            });
+            
+        });
+        
+        $(window).on("beforeunload", function() {
+            websocket.close();    
+        });
+    </script>
+
+    <link href="http://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <style>
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        body {
+            background-image: linear-gradient(to bottom, #eaeaea, #c7c7c7);
+        }
+        
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Bree Serif', serif;
+            font-weight: normal;
+            text-align: center;
+            flex-wrap: wrap;
+        }
+        
+        @-webkit-keyframes animatebottom {
+            from {
+                bottom: -100px;
+                opacity: 0
+            }
+            to {
+                bottom: 0px;
+                opacity: 1
+            }
+        }
+        
+        @keyframes animatebottom {
+            from {
+                bottom: -100px;
+                opacity: 0
+            }
+            to {
+                bottom: 0;
+                opacity: 1
+            }
+        }
+        
+        .centeredMain {
+            max-width: 750px;
+            height: 500px;
+            margin: 0 auto;
+            background-color: white;
+            border: 1px solid;
+            border-radius: 8px;
+            border-color: whitesmoke;
+            padding: 8px;
+        }
+        
+        #nicknameDiv {
+            display: block;
+            padding: 10%;
+        }
+        
+        #chatDiv {
+            display: none;
+        }
+        
+        #nicknameField {
+            width: 100%;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            
+            border: 1px solid;
+            border-color: darkgrey;
+            border-radius: 2px;
+        }
+        
+        #nicknameHeader {
+            display: inline;
+        }
+        
+        .centered {
+            width: 75%;
+            margin: 0 auto;
+        }
+        
+        .error {
+            color: darkred;
+            font-size: 0.8em;
+        }
+        
+        #connectButton {
+            float: right;
+            background-color: white;
+            border: 1px solid;
+            border-color: darkgrey;
+            border-radius: 2px;
+        }
+        
+        #connectButton:hover {
+            background-color: whitesmoke;
+        }
+        
+        .conversationDiv {
+            overflow-y: scroll;
+            
+            border-left: 1px solid;
+            border-top: 1px solid;
+            border-right: 1px solid;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            border-color: lightgray;
+            
+            padding: 12px;
+            
+            height: 90%;
+            vertical-align: bottom;
+        }
+        
+        .bottomDiv {
+            background-image: url(images/diagonal_striped_brick.png);
+            height: 10%;
+            border-bottom: 1px solid;
+            border-left: 1px solid;
+            border-right: 1px solid;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            border-color: lightgray;
+            -webkit-box-shadow: 0px -1px 3px rgba(50, 50, 50, 0.75);
+            -moz-box-shadow:    0px -1px 3px rgba(50, 50, 50, 0.75);
+            box-shadow:         inset 0px 1px 3px rgba(50, 50, 50, 0.75);
+        }
+        
+        #chatInputField {
+            
+            display: inline;
+            float: none;
+            width: 50%;
+            position: relative;
+            left: 20%;
+            top: 25%;
+        }
+        
+        #sendButton {
+            display: inline;
+            float: none;
+            position: relative;
+            top: 25%;
+            left: 20%;
+        }
+        
+        .incoming {
+            background-color:whitesmoke;
+            border: 1px solid;
+            border-radius: 3px;
+            border-color: whitesmoke;
+            padding: 4px;
+            margin-top: 3px;
+            margin-bottom: 3px;
+            
+            color: black;
+            font-size: 0.9em;
+        }
+        
+        .outgoing {
+            background-color: g;
+            border: 1px solid;
+            border-radius: 3px;
+            border-color: whitesmoke;
+            padding: 4px;
+            margin-top: 3px;
+            margin-bottom: 3px;
+            
+            color: dimgray;
+            font-size: 0.9em;
+                
+                
+        }
+        
+        .time {
+            float: right;
+            font-size: 0.6em;
+        }
+        
+        .nickname {
+            font-weight: bold;
+        }
+        
+        #chatInputField {
+            border: 1px solid;
+            border-color: grey;
+            border-radius: 3px;
+            padding: 2px;
+        }
+        
+        #sendButton {
+            background-color: white;
+            border: 1px solid;
+            border-color: grey;
+            border-radius: 3px;
+            padding: 2px;
+        }
+        
+        #sendButton:hover {
+            background-color: whitesmoke;
+        }
+        
+        #sendButton:active {
+            background-color: gainsboro;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <h1>Websocket Chatroom!</h1>
+    <div id="nicknameDiv" class="animatebottom centeredMain">
+        <div class="centered">
+            <h3 id="nicknameHeader">Nickname:</h3>
+            <input id="nicknameField" type="text"><br>
+            <span id="errorField" class="error"></span><button id="connectButton" type="button">Connect</button>
+        </div>
+    </div>
+    <div id="chatDiv" class="animatebottom centeredMain">
+        <div id="conversationDiv" class="conversationDiv">
+        </div>
+        <div class="bottomDiv">
+            <input id="chatInputField" type="text">
+            <button id="sendButton">Send!</button>
+        </div>
+    </div>
+
+</body>
+</html>
