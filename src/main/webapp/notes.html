@@ -1,0 +1,148 @@
+<html>
+    <head>
+    <title>Notes! Whee</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0px;
+        }
+        
+        body {
+            background-color: rgb(41, 50, 72);
+            position: absolute;
+            top: 0px;
+        }
+        
+        .content {
+            max-width: 600px;
+            margin: 10% auto;
+        }
+        
+        #note_creation_container,
+        #notes_container {
+            background-color: white;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid;
+            border-color: #e3e3e3;
+        }
+        
+        .note {
+            background-color: #d9d9d9;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            padding: 5px;
+            border: 1px solid;
+            border-color: #b1b1b1;
+        }
+        
+        .note:first-child {
+            margin-top: 0px;
+        }
+        
+        .note:last-child {
+            margin-bottom: 0px;
+        }
+        
+        .symbol_button {
+            float: right;
+            background-color: #ebebeb;
+            border: 1px solid;
+            border-color: #b1b1b1;
+            font-size: 100%;
+            font-weight: bold;
+            height: 20px;
+            width: 20px;
+            padding: 0px;
+        }
+        
+        #note_input {
+            border: 1px solid;
+            border-color: #b1b1b1;
+            width: 95%;
+        }
+        
+        #clock_container {
+            font-size: 2em;
+            text-align: center;
+        }
+        
+        #clock {
+            color: white;
+            font-size: 2em;
+        }
+        
+        #date {
+            color: lightgray;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var storedNotes = [];
+            startTime(); 
+            
+            $("#note_new").on("click",function () {
+                storedNotes = storedNotes.concat($("#note_input").val());
+                $("#notes_container").html("<div class=\"note\"><button class=\"symbol_button\">x</button><span>" + $("#note_input").val() + "</span></div>" + $("#notes_container").html());  
+                localStorage.setItem("notes",JSON.stringify(storedNotes));
+            });
+            if (localStorage) {
+                if(localStorage.getItem("notes") != null) {
+                    storedNotes = JSON.parse(localStorage.getItem("notes"));
+                    storedNotes.forEach(function(item) {
+                        $("#notes_container").html("<div class=\"note\"><button class=\"symbol_button\">x</button><span>" + item + "</span></div>" + $("#notes_container").html());        
+                    });
+                }
+            } else {
+              // No support. Use a fallback such as browser cookies or store on the server.
+            }
+            
+        });
+        
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            $("#hours").html(h);
+            $("#minutes").html(m);
+            $("#seconds").html(s);
+            var t = setTimeout(startTime, 500);
+        }
+
+        function checkTime(i) {
+            if (i < 10) {
+                i = "0" + i
+            }; // add zero in front of numbers < 10
+            return i;
+        }
+    </script>
+</head>
+
+<body>
+    <div class="content">
+        <div id="clock_container">
+            <div id="clock">
+                <span id="hours"></span>
+                <span id="minutes"></span>
+                <span id="seconds"></span>
+            </div>
+            <div id="date">jue sep 22</div>
+        </div>
+        <div id="note_creation_container">
+            <div class="note">
+                <input id="note_input" type="text">
+                <button type="submit" id="note_new" class="symbol_button">+</button>
+            </div>
+        </div>
+        <div id="notes_container">
+            
+        </div>
+    </div>
+</body>
+</html>
