@@ -80,27 +80,58 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script>
+        
         $(document).ready(function() {
+            var lastId = 0;
             var storedNotes = [];
             startTime(); 
             
-            $("#note_new").on("click",function () {
-                storedNotes = storedNotes.concat($("#note_input").val());
-                $("#notes_container").html("<div class=\"note\"><button class=\"symbol_button\">x</button><span>" + $("#note_input").val() + "</span></div>" + $("#notes_container").html());  
-                localStorage.setItem("notes",JSON.stringify(storedNotes));
-            });
             if (localStorage) {
+                if(localStorage.getItem("last_id") != null) {
+                    lastId = localStorage.getItem("last_id");
+                } else {
+                    lastId = 0;
+                }
                 if(localStorage.getItem("notes") != null) {
                     storedNotes = JSON.parse(localStorage.getItem("notes"));
                     storedNotes.forEach(function(item) {
-                        $("#notes_container").html("<div class=\"note\"><button class=\"symbol_button\">x</button><span>" + item + "</span></div>" + $("#notes_container").html());        
+                        $("#notes_container").html("<div id=\"" + item.id + "\" class=\"note\"><button id=\"delete_button\" class=\"symbol_button\">x</button><span>" + item.text + "</span></div>" + $("#notes_container").html());        
                     });
                 }
             } else {
               // No support. Use a fallback such as browser cookies or store on the server.
             }
             
+            $("#note_new").on("click",function () {
+                var note = {};
+                lastId++;
+                note.id = lastId;
+                note.text = $("#note_input").val();
+                storedNotes.push(note);
+                storedNotes = storedNotes.concat($("#note_input").val());
+                
+                $("#notes_container").html("<div id=\"" + note.id + "\" class=\"note\"><button id=\"delete_button\" class=\"symbol_button\">x</button><span>" + note.text + "</span></div>" + $("#notes_container").html());  
+                
+                localStorage.setItem("last_id",lastId);
+                localStorage.setItem("notes",JSON.stringify(storedNotes));
+            });
+            
+            $("#delete_button").on("click", function() {
+                var id = $(this).closest("div").attr("id");
+                $("#" + id).remove();
+                searchAndRemove(id,storedNotes);
+                localStorage.setItem("notes",JSON.stringify(storedNotes));
+            });
+            
         });
+        
+        function searchAndRemove(nameKey, myArray) {
+            for (var i=0; i < myArray.length; i++) {
+                if (myArray[i].id === nameKey) {
+                    myArray.splice(i,1);
+                }
+            }
+        }
         
         function startTime() {
             var today = new Date();
@@ -114,7 +145,6 @@
             $("#seconds").html(s);
             var t = setTimeout(startTime, 500);
         }
-
         function checkTime(i) {
             if (i < 10) {
                 i = "0" + i
