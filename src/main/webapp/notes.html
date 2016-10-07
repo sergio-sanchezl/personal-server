@@ -1,3 +1,7 @@
+<!-- things to sort out:
+        fix the deletion of notes: only one html element is deleted, need to be able to remove all.
+        changes are not really performed: after reloading, the notes before deleting any are loaded again.
+-->
 <html>
     <head>
     <title>Notes! Whee</title>
@@ -87,15 +91,23 @@
             startTime(); 
             
             if (localStorage) {
+                console.log("Retrieving last_id:");
                 if(localStorage.getItem("last_id") != null) {
                     lastId = localStorage.getItem("last_id");
+                    console.log("last_id found, with value = " + lastId);
                 } else {
                     lastId = 0;
+                    console.log("last_id not found. setting value 0");
                 }
+                
+                
                 if(localStorage.getItem("notes") != null) {
+                    
                     storedNotes = JSON.parse(localStorage.getItem("notes"));
+                    console.log("Found notes: ");
+                    console.log(storedNotes);
                     storedNotes.forEach(function(item) {
-                        $("#notes_container").html("<div id=\"" + item.id + "\" class=\"note\"><button id=\"delete_button\" class=\"symbol_button\">x</button><span>" + item.text + "</span></div>" + $("#notes_container").html());        
+                        $("#notes_container").html("<div id=\"" + item.id + "\" class=\"note\"><button class=\"symbol_button delete_button\" onclick=\"deleteNote("+ item.id + ")\">x</button><span>" + item.text + "</span></div>" + $("#notes_container").html());        
                     });
                 }
             } else {
@@ -108,26 +120,40 @@
                 note.id = lastId;
                 note.text = $("#note_input").val();
                 storedNotes.push(note);
-                storedNotes = storedNotes.concat($("#note_input").val());
-                
-                $("#notes_container").html("<div id=\"" + note.id + "\" class=\"note\"><button id=\"delete_button\" class=\"symbol_button\">x</button><span>" + note.text + "</span></div>" + $("#notes_container").html());  
+                console.log("Creating new note with ID: " + note.id + "\nText: " + note.text);
+                $("#notes_container").html("<div id=\"" + note.id + "\" class=\"note\"><button class=\"symbol_button delete_button\" onclick=\"deleteNote("+ note.id + ")\">x</button><span>" + note.text + "</span></div>" + $("#notes_container").html());  
                 
                 localStorage.setItem("last_id",lastId);
                 localStorage.setItem("notes",JSON.stringify(storedNotes));
+                console.log("last_id is now: " + lastId);
+                console.log("After adding, notes is now: " + localStorage.getItem("notes"));
             });
-            
-            $("#delete_button").on("click", function() {
+            /*
+            $(".delete_button").on("click", function() {
+                
                 var id = $(this).closest("div").attr("id");
+                console.log("About to delete ID: " + id);
                 $("#" + id).remove();
                 searchAndRemove(id,storedNotes);
                 localStorage.setItem("notes",JSON.stringify(storedNotes));
-            });
+                console.log("After deleting, notes is now: " + localStorage.getItem("notes"));
+            });*/
+            
             
         });
         
+        function deleteNote(id) {
+            console.log("About to delete ID: " + id);
+            $("#" + id).remove();
+            searchAndRemove(id,storedNotes);
+            localStorage.setItem("notes",JSON.stringify(storedNotes));
+            console.log("After deleting, notes is now: " + localStorage.getItem("notes"));
+        }
+        
         function searchAndRemove(nameKey, myArray) {
             for (var i=0; i < myArray.length; i++) {
-                if (myArray[i].id === nameKey) {
+                if (myArray[i].id == nameKey) {
+                    console.log("found id: " + nameKey + " in the array. deleting it...");
                     myArray.splice(i,1);
                 }
             }
@@ -162,7 +188,7 @@
                 <span id="minutes"></span>
                 <span id="seconds"></span>
             </div>
-            <div id="date">jue sep 22</div>
+            <div id="date">day mon 00</div>
         </div>
         <div id="note_creation_container">
             <div class="note">
