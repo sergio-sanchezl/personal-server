@@ -5,6 +5,8 @@
 <html>
     <head>
     <title>Notes! Whee</title>
+    <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
+
     <style>
         html,
         body {
@@ -13,8 +15,11 @@
             margin: 0px;
         }
         
+        * {
+            font-family: 'Questrial', sans-serif;
+        }
         body {
-            background-color: rgb(41, 50, 72);
+            background-color: rgb(64, 64, 137);
             position: absolute;
             top: 0px;
         }
@@ -24,13 +29,19 @@
             margin: 10% auto;
         }
         
-        #note_creation_container,
         #notes_container {
-            background-color: white;
+            margin: 10px;
+            padding: 10px;
+        
+        }
+        #note_creation_container
+        {
+            background-color: rgba(255, 255, 255, 0.15);
             margin: 10px;
             padding: 10px;
             border: 1px solid;
-            border-color: #e3e3e3;
+            border-radius: 2px;
+            border-color: rgba(255, 255, 255, 0.00);
         }
         
         .note {
@@ -40,6 +51,28 @@
             padding: 5px;
             border: 1px solid;
             border-color: #b1b1b1;
+        }
+        
+        .note_creation_field {
+            background-color: rgb(255, 255, 255);
+            padding: 5px;
+            border: 1px solid;
+            border-color: #ffffff;
+            border-radius: 2px;
+            
+        }
+        
+        #note_input:focus {
+            outline: none;
+            
+        }
+        #note_input {
+            outline: none;
+            line-height: 18px;
+            border-bottom-width: 10px;
+            border-bottom-color: black;
+            border-bottom-left-radius: 2px;
+            border-bottom-right-radius: 2px;
         }
         
         .note:first-child {
@@ -52,7 +85,7 @@
         
         .symbol_button {
             float: right;
-            background-color: #ebebeb;
+            background-color: #ffffff;
             border: 1px solid;
             border-color: #b1b1b1;
             font-size: 100%;
@@ -84,10 +117,9 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script>
-        
+        var storedNotes = [];
+        var lastId = 0;
         $(document).ready(function() {
-            var lastId = 0;
-            var storedNotes = [];
             startTime(); 
             
             if (localStorage) {
@@ -191,7 +223,7 @@
             <div id="date">day mon 00</div>
         </div>
         <div id="note_creation_container">
-            <div class="note">
+            <div class="note_creation_field">
                 <input id="note_input" type="text">
                 <button type="submit" id="note_new" class="symbol_button">+</button>
             </div>
